@@ -1,87 +1,73 @@
 public class CommandLine {
 
-   public CommandLine() {
+    public static void main(String[] args) {
+        if (args.length == 0) {
+            System.out.println("No arguments provided.");
+            System.out.println("Usage: java CommandLine <operator> <num1> <num2> ...");
+            System.out.println("Supported operators: +  -  *  /");
+            return;
+        }
 
-   }
+        String operator = args[0];
 
+        // Check if operator is valid
+        if (!operator.matches("[+\\-*/]")) {
+            System.out.println("Invalid operator: " + operator);
+            System.out.println("Please use one of the following: +  -  *  /");
+            return;
+        }
 
-   public static void main(String[] var0) {
+        // Check if there are numbers to operate on
+        if (args.length == 1) {
+            System.out.println("Operator provided but no numbers.");
+            System.out.println("Usage: java CommandLine " + operator + " <num1> <num2> ...");
+            return;
+        }
 
-      if (var0.length == 0) {
-
-         System.out.println("No arguments provided.");
-
-      } else {
-
-         String var1 = var0[0];
-
-         if (var0.length < 3) {
-
-            System.out.println("not enough arguments");
-
-         } else {
-
-            double var2 = Double.parseDouble(var0[1]);
-
-
-            for(int var4 = 2; var4 < var0.length; ++var4) {
-
-               double var5 = Double.parseDouble(var0[var4]);
-
-               switch (var1) {
-
-                  case "+":
-
-                     var2 += var5;
-
-                     break;
-
-                  case "-":
-
-                     var2 -= var5;
-
-                     break;
-
-                  case "*":
-
-                     var2 *= var5;
-
-                     break;
-
-                  case "/":
-
-                     if (var5 == 0.0) {
-
-                        System.out.println("Error: Division by zero.");
-
-                        return;
-
-                     }
-
-
-                     var2 /= var5;
-
-                     break;
-
-                  default:
-
-                     System.out.println("not supported operator: " + var1);
-
-                     return;
-
-               }
-
+        // Convert arguments to numbers
+        double[] numbers = new double[args.length - 1];
+        try {
+            for (int i = 1; i < args.length; i++) {
+                numbers[i - 1] = Double.parseDouble(args[i]);
             }
+        } catch (NumberFormatException e) {
+            System.out.println("Error: All arguments after the operator must be valid numbers.");
+            return;
+        }
 
+        // Perform calculation
+        double result = numbers[0];
+        switch (operator) {
+            case "+":
+                for (int i = 1; i < numbers.length; i++) result += numbers[i];
+                break;
+            case "-":
+                for (int i = 1; i < numbers.length; i++) result -= numbers[i];
+                break;
+            case "*":
+                for (int i = 1; i < numbers.length; i++) result *= numbers[i];
+                break;
+            case "/":
+                for (int i = 1; i < numbers.length; i++) {
+                    if (numbers[i] == 0) {
+                        System.out.println("Error: Division by zero.");
+                        return;
+                    }
+                    result /= numbers[i];
+                }
+                break;
+        }
 
-            System.out.println("Result: " + var2);
-
-         }
-
-      }
-
-   }
-
+        System.out.println("Result: " + result);
+    }
 }
 
 
+
+
+// ex:
+// java CommandLine "*" 5 2
+// java CommandLine / 200 20 
+// java CommandLine + 500 234
+// java CommandLine + 1 2
+// java CommandLine - 8 3 
