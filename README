@@ -1,0 +1,48 @@
+# CommandLine Calculator README
+
+## How to Compile
+On terminal run:
+javac CommandLine.java
+
+## How to Run
+
+### Addition (for any amount of integers)
+java CommandLine + 1 2 3 
+# Result: 6.0
+
+### Subtraction (Integers are subtracted starting from the first number down)
+java CommandLine - 10 3 2
+# Result: 5.0 (calculates 10 - 3 - 2)
+
+### Multiplication (use quotes around * in the command line "*". This is because it's a special character and it gets expanded to filenames)
+java CommandLine "*" 2 3 4
+# Result: 24.0 (calculates 2 * 3 * 4)
+
+### Division (use quotes around /)
+java CommandLine "/" 100 5 2
+# Result: 10.0 (calculates 100 / 5 / 2)
+
+## Error Testing
+
+### No arguments
+java CommandLine
+# Output: Error: No arguments provided.
+
+### Only operator (no numbers)
+java CommandLine +
+# Output: Error: Operator provided only
+
+### Division by zero
+java CommandLine "/" 10 0
+# Output: Error: Division by zero is not allowed.
+
+### Invalid input (non-numeric)
+java CommandLine + 1 abc 3
+# Output: Error: All arguments after the operator must be valid numbers.
+
+## Important Notes
+- Always use quotes around * and / operators: "*" and "/"
+- Format: java CommandLine <operator> <number1> <number2> ...
+- Operators supported: +, -, *, /
+- Subtraction: first number minus all others (- 10 3 2 = 10 - 3 - 2)
+- Division: first number divided by all others (/ 100 5 2 = 100 / 5 / 2)
